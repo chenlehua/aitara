@@ -1,0 +1,380 @@
+{
+  "document": {
+    "title": "IVI System Functional Specification",
+    "version": "2.1.0",
+    "date": "2024-01-15",
+    "author": "Sample Automotive Engineering"
+  },
+  "use_cases": [
+    {
+      "id": "UC-001",
+      "name": "Media Playback from USB",
+      "category": "Entertainment",
+      "description": "User connects a USB storage device and plays audio/video content",
+      "actors": ["Driver", "Passenger"],
+      "preconditions": [
+        "Vehicle ignition is ON or ACC mode",
+        "USB device contains supported media formats"
+      ],
+      "main_flow": [
+        "User inserts USB device into front USB port",
+        "System detects USB device and scans for media files",
+        "System displays media library on screen",
+        "User selects media file for playback",
+        "System plays selected media through vehicle speakers"
+      ],
+      "postconditions": [
+        "Media playback continues until user stops or changes source"
+      ],
+      "security_requirements": [
+        "Media files must be scanned for malware before playback",
+        "USB device enumeration must be validated",
+        "Autorun functionality must be disabled"
+      ],
+      "related_components": ["COMP-006", "COMP-016", "COMP-009"]
+    },
+    {
+      "id": "UC-002",
+      "name": "Bluetooth Phone Pairing",
+      "category": "Connectivity",
+      "description": "User pairs their smartphone with the IVI system via Bluetooth",
+      "actors": ["Driver"],
+      "preconditions": [
+        "Vehicle ignition is ON",
+        "User's phone has Bluetooth enabled",
+        "IVI Bluetooth is in discoverable mode"
+      ],
+      "main_flow": [
+        "User accesses Bluetooth settings on IVI",
+        "User initiates pairing from phone or IVI",
+        "System displays pairing code on IVI screen",
+        "User confirms pairing code on phone",
+        "System establishes secure connection",
+        "System syncs contacts and call history (if permitted)"
+      ],
+      "postconditions": [
+        "Phone is paired and can be used for hands-free calling",
+        "Phone contacts are available in IVI contacts app"
+      ],
+      "security_requirements": [
+        "Secure Simple Pairing (SSP) must be used",
+        "Pairing PIN must be displayed, not transmitted",
+        "Contact sync must require explicit user consent",
+        "Maximum 5 paired devices allowed"
+      ],
+      "related_components": ["COMP-003", "COMP-017", "COMP-012"]
+    },
+    {
+      "id": "UC-003",
+      "name": "Navigation Route Guidance",
+      "category": "Navigation",
+      "description": "User enters a destination and receives turn-by-turn navigation",
+      "actors": ["Driver"],
+      "preconditions": [
+        "Vehicle ignition is ON",
+        "GNSS signal is available",
+        "Map data is loaded"
+      ],
+      "main_flow": [
+        "User enters destination via voice or touch",
+        "System calculates optimal route",
+        "System displays route on map with ETA",
+        "User confirms route selection",
+        "System provides turn-by-turn voice guidance",
+        "System updates route based on real-time traffic (if connected)"
+      ],
+      "postconditions": [
+        "Navigation guidance continues until destination is reached or cancelled"
+      ],
+      "security_requirements": [
+        "GNSS data must be validated for spoofing detection",
+        "Route data must not be logged without user consent",
+        "Cloud traffic services must use encrypted connection"
+      ],
+      "related_components": ["COMP-005", "COMP-015", "COMP-004"]
+    },
+    {
+      "id": "UC-004",
+      "name": "Over-The-Air (OTA) Update",
+      "category": "System",
+      "description": "System receives and installs software updates over cellular network",
+      "actors": ["System", "OEM Backend"],
+      "preconditions": [
+        "Vehicle is parked and ignition is OFF or ACC mode",
+        "Cellular connectivity is available",
+        "Sufficient battery charge (>50%)"
+      ],
+      "main_flow": [
+        "System checks for updates periodically or on user request",
+        "Backend server notifies available update",
+        "System downloads update package in background",
+        "System verifies package signature",
+        "System notifies user of pending update",
+        "User approves update installation",
+        "System installs update during next vehicle off cycle",
+        "System verifies successful installation on next boot"
+      ],
+      "postconditions": [
+        "System is updated to new software version",
+        "Update status is reported to backend"
+      ],
+      "security_requirements": [
+        "Update package must be signed with OEM private key",
+        "Package integrity must be verified (SHA-256)",
+        "Rollback capability must be available",
+        "Update must not occur while vehicle is in motion",
+        "Secure boot chain must verify updated components"
+      ],
+      "related_components": ["COMP-004", "COMP-018", "COMP-011", "COMP-013"]
+    },
+    {
+      "id": "UC-005",
+      "name": "Remote Door Lock/Unlock via Mobile App",
+      "category": "Remote Control",
+      "description": "User remotely locks or unlocks vehicle doors using smartphone app",
+      "actors": ["Vehicle Owner", "Mobile App", "Cloud Backend"],
+      "preconditions": [
+        "User is authenticated in mobile app",
+        "Vehicle has cellular connectivity",
+        "User has remote control permission"
+      ],
+      "main_flow": [
+        "User opens mobile app and authenticates",
+        "User selects lock/unlock function",
+        "App sends command to cloud backend",
+        "Backend validates user authorization",
+        "Backend sends command to vehicle T-BOX",
+        "T-BOX forwards command to IVI via secure channel",
+        "IVI sends CAN message to BCM",
+        "BCM actuates door locks",
+        "Confirmation is sent back to mobile app"
+      ],
+      "postconditions": [
+        "Vehicle doors are locked/unlocked",
+        "Event is logged in vehicle and backend"
+      ],
+      "security_requirements": [
+        "End-to-end encryption for command transmission",
+        "Multi-factor authentication for remote commands",
+        "Command must include timestamp and nonce",
+        "Rate limiting for remote commands (max 10/hour)",
+        "Geofencing for unlock commands (optional)"
+      ],
+      "related_components": ["COMP-004", "COMP-008", "COMP-019"]
+    },
+    {
+      "id": "UC-006",
+      "name": "Web Browsing",
+      "category": "Entertainment",
+      "description": "Passenger browses the internet using built-in web browser",
+      "actors": ["Passenger"],
+      "preconditions": [
+        "Vehicle ignition is ON",
+        "WiFi or cellular data connection is available",
+        "Vehicle is not in motion (browser restricted while driving)"
+      ],
+      "main_flow": [
+        "User launches web browser application",
+        "User enters URL or search query",
+        "System fetches and renders web content",
+        "User navigates web pages"
+      ],
+      "postconditions": [
+        "Browser session ends when user closes application or vehicle powers off"
+      ],
+      "security_requirements": [
+        "Browser must run in sandboxed environment",
+        "JavaScript execution must be sandboxed",
+        "SSL certificate validation must be enforced",
+        "No access to vehicle APIs from browser context",
+        "Browsing history must be clearable by user"
+      ],
+      "related_components": ["COMP-020", "COMP-002", "COMP-004"]
+    },
+    {
+      "id": "UC-007",
+      "name": "Apple CarPlay Connection",
+      "category": "Connectivity",
+      "description": "User connects iPhone to use Apple CarPlay interface",
+      "actors": ["Driver", "iPhone"],
+      "preconditions": [
+        "Vehicle ignition is ON",
+        "iPhone with CarPlay support connected via USB or wireless"
+      ],
+      "main_flow": [
+        "User connects iPhone via USB cable or initiates wireless CarPlay",
+        "System authenticates device using MFi protocol",
+        "System launches CarPlay interface",
+        "iPhone screen is mirrored/projected to IVI display",
+        "User interacts with CarPlay apps (Maps, Music, Phone)"
+      ],
+      "postconditions": [
+        "CarPlay session active until disconnection"
+      ],
+      "security_requirements": [
+        "Only MFi certified connections allowed",
+        "CarPlay interface isolated from native IVI apps",
+        "Audio routing controlled by IVI, not iPhone",
+        "No direct CAN bus access from CarPlay"
+      ],
+      "related_components": ["COMP-006", "COMP-002", "COMP-012"]
+    },
+    {
+      "id": "UC-008",
+      "name": "Voice Command Recognition",
+      "category": "Interface",
+      "description": "User controls IVI functions using voice commands",
+      "actors": ["Driver"],
+      "preconditions": [
+        "Vehicle ignition is ON",
+        "Microphone array is functional"
+      ],
+      "main_flow": [
+        "User speaks wake word or presses voice button",
+        "System activates voice recognition",
+        "User speaks command",
+        "System processes speech locally or via cloud",
+        "System executes recognized command",
+        "System provides audio feedback"
+      ],
+      "postconditions": [
+        "Requested action is performed"
+      ],
+      "security_requirements": [
+        "Voice data sent to cloud must be encrypted",
+        "Voice recordings must not be stored without consent",
+        "Critical vehicle commands require confirmation",
+        "Speaker verification for sensitive operations (optional)"
+      ],
+      "related_components": ["COMP-009", "COMP-012", "COMP-004"]
+    },
+    {
+      "id": "UC-009",
+      "name": "Vehicle Diagnostics Display",
+      "category": "Vehicle Information",
+      "description": "System displays vehicle diagnostic information to user",
+      "actors": ["Driver"],
+      "preconditions": [
+        "Vehicle ignition is ON"
+      ],
+      "main_flow": [
+        "User navigates to vehicle status screen",
+        "System retrieves vehicle data via CAN bus",
+        "System displays tire pressure, fuel level, range, etc.",
+        "System displays any active warnings or DTCs"
+      ],
+      "postconditions": [
+        "Current vehicle status is displayed"
+      ],
+      "security_requirements": [
+        "Diagnostic data read-only for user interface",
+        "No write access to ECU parameters from IVI",
+        "DTC details should not expose security-sensitive codes"
+      ],
+      "related_components": ["COMP-008", "COMP-019", "COMP-012"]
+    },
+    {
+      "id": "UC-010",
+      "name": "WiFi Hotspot Sharing",
+      "category": "Connectivity",
+      "description": "IVI provides WiFi hotspot for passenger devices using cellular data",
+      "actors": ["Passengers"],
+      "preconditions": [
+        "Vehicle ignition is ON",
+        "Cellular data plan active",
+        "Hotspot feature enabled by user"
+      ],
+      "main_flow": [
+        "User enables WiFi hotspot from settings",
+        "System creates WiFi access point",
+        "Passengers connect their devices",
+        "Traffic is routed through cellular modem"
+      ],
+      "postconditions": [
+        "Passenger devices have internet access"
+      ],
+      "security_requirements": [
+        "WPA3 encryption required for hotspot",
+        "Client isolation must be enabled",
+        "Hotspot traffic must be isolated from vehicle network",
+        "Maximum client limit enforced",
+        "Data usage tracking required"
+      ],
+      "related_components": ["COMP-002", "COMP-004", "COMP-012"]
+    }
+  ],
+  "data_assets": [
+    {
+      "id": "DA-001",
+      "name": "User Contacts",
+      "category": "PII",
+      "source": "Bluetooth Sync",
+      "storage": "eMMC (encrypted)",
+      "sensitivity": "High",
+      "retention": "Until user deletion or factory reset"
+    },
+    {
+      "id": "DA-002",
+      "name": "Navigation History",
+      "category": "Location Data",
+      "source": "Navigation App",
+      "storage": "eMMC",
+      "sensitivity": "Medium",
+      "retention": "90 days"
+    },
+    {
+      "id": "DA-003",
+      "name": "Vehicle Telemetry",
+      "category": "Vehicle Data",
+      "source": "CAN Bus",
+      "storage": "RAM (transient)",
+      "sensitivity": "Low",
+      "retention": "Session only"
+    },
+    {
+      "id": "DA-004",
+      "name": "User Preferences",
+      "category": "Configuration",
+      "source": "User Input",
+      "storage": "eMMC",
+      "sensitivity": "Low",
+      "retention": "Persistent"
+    },
+    {
+      "id": "DA-005",
+      "name": "OEM Certificates",
+      "category": "Security Credentials",
+      "source": "Factory Provisioning",
+      "storage": "HSM",
+      "sensitivity": "Critical",
+      "retention": "Permanent"
+    },
+    {
+      "id": "DA-006",
+      "name": "WiFi Credentials",
+      "category": "Security Credentials",
+      "source": "User Input",
+      "storage": "eMMC (encrypted)",
+      "sensitivity": "High",
+      "retention": "Until user deletion"
+    },
+    {
+      "id": "DA-007",
+      "name": "Voice Recordings",
+      "category": "PII",
+      "source": "Microphone",
+      "storage": "RAM (transient) or Cloud",
+      "sensitivity": "High",
+      "retention": "Transient or per privacy policy"
+    },
+    {
+      "id": "DA-008",
+      "name": "Firmware Image",
+      "category": "System",
+      "source": "OTA Update",
+      "storage": "eMMC",
+      "sensitivity": "Critical",
+      "retention": "Current + 1 rollback version"
+    }
+  ]
+}

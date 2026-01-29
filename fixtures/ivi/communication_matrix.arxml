@@ -1,0 +1,625 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AUTOSAR xmlns="http://autosar.org/schema/r4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://autosar.org/schema/r4.0 AUTOSAR_00049.xsd">
+  <AR-PACKAGES>
+    <!-- System Description Package -->
+    <AR-PACKAGE>
+      <SHORT-NAME>IVI_System</SHORT-NAME>
+      <LONG-NAME>
+        <L-4 L="EN">In-Vehicle Infotainment System Communication Matrix</L-4>
+      </LONG-NAME>
+
+      <AR-PACKAGES>
+        <!-- ECU Instances -->
+        <AR-PACKAGE>
+          <SHORT-NAME>EcuInstances</SHORT-NAME>
+          <ELEMENTS>
+            <ECU-INSTANCE>
+              <SHORT-NAME>IVI_HeadUnit</SHORT-NAME>
+              <LONG-NAME><L-4 L="EN">IVI Head Unit ECU</L-4></LONG-NAME>
+              <ADMIN-DATA>
+                <SDGS>
+                  <SDG GID="DV:ECU">
+                    <SD GID="DV:HardwareVersion">SA8155P</SD>
+                    <SD GID="DV:SoftwareVersion">AAOS 12.0</SD>
+                  </SDG>
+                </SDGS>
+              </ADMIN-DATA>
+            </ECU-INSTANCE>
+
+            <ECU-INSTANCE>
+              <SHORT-NAME>Gateway</SHORT-NAME>
+              <LONG-NAME><L-4 L="EN">Central Gateway ECU</L-4></LONG-NAME>
+            </ECU-INSTANCE>
+
+            <ECU-INSTANCE>
+              <SHORT-NAME>BCM</SHORT-NAME>
+              <LONG-NAME><L-4 L="EN">Body Control Module</L-4></LONG-NAME>
+            </ECU-INSTANCE>
+
+            <ECU-INSTANCE>
+              <SHORT-NAME>HVAC</SHORT-NAME>
+              <LONG-NAME><L-4 L="EN">HVAC Controller</L-4></LONG-NAME>
+            </ECU-INSTANCE>
+
+            <ECU-INSTANCE>
+              <SHORT-NAME>Amplifier</SHORT-NAME>
+              <LONG-NAME><L-4 L="EN">Audio Amplifier</L-4></LONG-NAME>
+            </ECU-INSTANCE>
+
+            <ECU-INSTANCE>
+              <SHORT-NAME>Cluster</SHORT-NAME>
+              <LONG-NAME><L-4 L="EN">Instrument Cluster</L-4></LONG-NAME>
+            </ECU-INSTANCE>
+
+            <ECU-INSTANCE>
+              <SHORT-NAME>TPMS</SHORT-NAME>
+              <LONG-NAME><L-4 L="EN">Tire Pressure Monitoring System</L-4></LONG-NAME>
+            </ECU-INSTANCE>
+          </ELEMENTS>
+        </AR-PACKAGE>
+
+        <!-- Communication Clusters -->
+        <AR-PACKAGE>
+          <SHORT-NAME>CommunicationClusters</SHORT-NAME>
+          <ELEMENTS>
+            <!-- Body CAN Cluster -->
+            <CAN-CLUSTER>
+              <SHORT-NAME>BodyCAN</SHORT-NAME>
+              <LONG-NAME><L-4 L="EN">Body Domain CAN Network</L-4></LONG-NAME>
+              <CAN-CLUSTER-VARIANTS>
+                <CAN-CLUSTER-CONDITIONAL>
+                  <BAUDRATE>500000</BAUDRATE>
+                  <PHYSICAL-CHANNELS>
+                    <CAN-PHYSICAL-CHANNEL>
+                      <SHORT-NAME>BodyCAN_Channel</SHORT-NAME>
+                      <COMM-CONNECTORS>
+                        <COMMUNICATION-CONNECTOR-REF-CONDITIONAL>
+                          <COMMUNICATION-CONNECTOR-REF DEST="CAN-COMMUNICATION-CONNECTOR">/IVI_System/EcuInstances/IVI_HeadUnit/CAN_Connector</COMMUNICATION-CONNECTOR-REF>
+                        </COMMUNICATION-CONNECTOR-REF-CONDITIONAL>
+                        <COMMUNICATION-CONNECTOR-REF-CONDITIONAL>
+                          <COMMUNICATION-CONNECTOR-REF DEST="CAN-COMMUNICATION-CONNECTOR">/IVI_System/EcuInstances/Gateway/CAN_Connector</COMMUNICATION-CONNECTOR-REF>
+                        </COMMUNICATION-CONNECTOR-REF-CONDITIONAL>
+                        <COMMUNICATION-CONNECTOR-REF-CONDITIONAL>
+                          <COMMUNICATION-CONNECTOR-REF DEST="CAN-COMMUNICATION-CONNECTOR">/IVI_System/EcuInstances/BCM/CAN_Connector</COMMUNICATION-CONNECTOR-REF>
+                        </COMMUNICATION-CONNECTOR-REF-CONDITIONAL>
+                      </COMM-CONNECTORS>
+                    </CAN-PHYSICAL-CHANNEL>
+                  </PHYSICAL-CHANNELS>
+                  <PROTOCOL-NAME>CAN</PROTOCOL-NAME>
+                  <PROTOCOL-VERSION>2.0B</PROTOCOL-VERSION>
+                </CAN-CLUSTER-CONDITIONAL>
+              </CAN-CLUSTER-VARIANTS>
+            </CAN-CLUSTER>
+          </ELEMENTS>
+        </AR-PACKAGE>
+
+        <!-- I-PDU Groups -->
+        <AR-PACKAGE>
+          <SHORT-NAME>IPduGroups</SHORT-NAME>
+          <ELEMENTS>
+            <!-- Vehicle Status PDU Group -->
+            <I-PDU-GROUP>
+              <SHORT-NAME>VehicleStatus_PduGroup</SHORT-NAME>
+              <COMMUNICATION-DIRECTION>IN</COMMUNICATION-DIRECTION>
+              <I-PDU-GROUP-REFS>
+                <I-PDU-REF DEST="I-SIGNAL-I-PDU">/IVI_System/IPdus/VehicleSpeed_Pdu</I-PDU-REF>
+                <I-PDU-REF DEST="I-SIGNAL-I-PDU">/IVI_System/IPdus/EngineRPM_Pdu</I-PDU-REF>
+                <I-PDU-REF DEST="I-SIGNAL-I-PDU">/IVI_System/IPdus/FuelLevel_Pdu</I-PDU-REF>
+                <I-PDU-REF DEST="I-SIGNAL-I-PDU">/IVI_System/IPdus/GearPosition_Pdu</I-PDU-REF>
+              </I-PDU-GROUP-REFS>
+            </I-PDU-GROUP>
+
+            <!-- Body Control PDU Group -->
+            <I-PDU-GROUP>
+              <SHORT-NAME>BodyControl_PduGroup</SHORT-NAME>
+              <COMMUNICATION-DIRECTION>IN</COMMUNICATION-DIRECTION>
+              <I-PDU-GROUP-REFS>
+                <I-PDU-REF DEST="I-SIGNAL-I-PDU">/IVI_System/IPdus/DoorStatus_Pdu</I-PDU-REF>
+                <I-PDU-REF DEST="I-SIGNAL-I-PDU">/IVI_System/IPdus/SeatbeltStatus_Pdu</I-PDU-REF>
+                <I-PDU-REF DEST="I-SIGNAL-I-PDU">/IVI_System/IPdus/LightStatus_Pdu</I-PDU-REF>
+              </I-PDU-GROUP-REFS>
+            </I-PDU-GROUP>
+
+            <!-- Remote Control PDU Group (Security Critical) -->
+            <I-PDU-GROUP>
+              <SHORT-NAME>RemoteControl_PduGroup</SHORT-NAME>
+              <COMMUNICATION-DIRECTION>OUT</COMMUNICATION-DIRECTION>
+              <ADMIN-DATA>
+                <SDGS>
+                  <SDG GID="DV:Security">
+                    <SD GID="DV:SecurityLevel">Critical</SD>
+                    <SD GID="DV:AuthRequired">true</SD>
+                  </SDG>
+                </SDGS>
+              </ADMIN-DATA>
+              <I-PDU-GROUP-REFS>
+                <I-PDU-REF DEST="I-SIGNAL-I-PDU">/IVI_System/IPdus/RemoteDoorLock_Pdu</I-PDU-REF>
+                <I-PDU-REF DEST="I-SIGNAL-I-PDU">/IVI_System/IPdus/RemoteDoorUnlock_Pdu</I-PDU-REF>
+                <I-PDU-REF DEST="I-SIGNAL-I-PDU">/IVI_System/IPdus/RemoteEngineStart_Pdu</I-PDU-REF>
+              </I-PDU-GROUP-REFS>
+            </I-PDU-GROUP>
+          </ELEMENTS>
+        </AR-PACKAGE>
+
+        <!-- I-PDUs (Protocol Data Units) -->
+        <AR-PACKAGE>
+          <SHORT-NAME>IPdus</SHORT-NAME>
+          <ELEMENTS>
+            <!-- Vehicle Speed PDU -->
+            <I-SIGNAL-I-PDU>
+              <SHORT-NAME>VehicleSpeed_Pdu</SHORT-NAME>
+              <ADMIN-DATA>
+                <SDGS>
+                  <SDG GID="DV:Security">
+                    <SD GID="DV:SecurityLevel">Medium</SD>
+                  </SDG>
+                </SDGS>
+              </ADMIN-DATA>
+              <LENGTH>2</LENGTH>
+              <I-PDU-TIMING-SPECIFICATIONS>
+                <I-PDU-TIMING>
+                  <TRANSMISSION-MODE-DECLARATION>
+                    <TRANSMISSION-MODE-CONDITIONS>
+                      <TRANSMISSION-MODE-CONDITION>
+                        <TRANSMISSION-MODE-TRUE-TIMING>
+                          <CYCLIC-TIMING>
+                            <TIME-PERIOD>
+                              <VALUE>0.1</VALUE>
+                            </TIME-PERIOD>
+                          </CYCLIC-TIMING>
+                        </TRANSMISSION-MODE-TRUE-TIMING>
+                      </TRANSMISSION-MODE-CONDITION>
+                    </TRANSMISSION-MODE-CONDITIONS>
+                  </TRANSMISSION-MODE-DECLARATION>
+                </I-PDU-TIMING>
+              </I-PDU-TIMING-SPECIFICATIONS>
+              <I-SIGNAL-TO-PDU-MAPPINGS>
+                <I-SIGNAL-TO-I-PDU-MAPPING>
+                  <SHORT-NAME>VehicleSpeed_Mapping</SHORT-NAME>
+                  <I-SIGNAL-REF DEST="I-SIGNAL">/IVI_System/ISignals/VehicleSpeed</I-SIGNAL-REF>
+                  <PACKING-BYTE-ORDER>MOST-SIGNIFICANT-BYTE-LAST</PACKING-BYTE-ORDER>
+                  <START-POSITION>0</START-POSITION>
+                </I-SIGNAL-TO-I-PDU-MAPPING>
+              </I-SIGNAL-TO-PDU-MAPPINGS>
+            </I-SIGNAL-I-PDU>
+
+            <!-- Engine RPM PDU -->
+            <I-SIGNAL-I-PDU>
+              <SHORT-NAME>EngineRPM_Pdu</SHORT-NAME>
+              <ADMIN-DATA>
+                <SDGS>
+                  <SDG GID="DV:Security">
+                    <SD GID="DV:SecurityLevel">Low</SD>
+                  </SDG>
+                </SDGS>
+              </ADMIN-DATA>
+              <LENGTH>2</LENGTH>
+              <I-PDU-TIMING-SPECIFICATIONS>
+                <I-PDU-TIMING>
+                  <TRANSMISSION-MODE-DECLARATION>
+                    <TRANSMISSION-MODE-CONDITIONS>
+                      <TRANSMISSION-MODE-CONDITION>
+                        <TRANSMISSION-MODE-TRUE-TIMING>
+                          <CYCLIC-TIMING>
+                            <TIME-PERIOD>
+                              <VALUE>0.05</VALUE>
+                            </TIME-PERIOD>
+                          </CYCLIC-TIMING>
+                        </TRANSMISSION-MODE-TRUE-TIMING>
+                      </TRANSMISSION-MODE-CONDITION>
+                    </TRANSMISSION-MODE-CONDITIONS>
+                  </TRANSMISSION-MODE-DECLARATION>
+                </I-PDU-TIMING>
+              </I-PDU-TIMING-SPECIFICATIONS>
+              <I-SIGNAL-TO-PDU-MAPPINGS>
+                <I-SIGNAL-TO-I-PDU-MAPPING>
+                  <SHORT-NAME>EngineRPM_Mapping</SHORT-NAME>
+                  <I-SIGNAL-REF DEST="I-SIGNAL">/IVI_System/ISignals/EngineRPM</I-SIGNAL-REF>
+                  <PACKING-BYTE-ORDER>MOST-SIGNIFICANT-BYTE-LAST</PACKING-BYTE-ORDER>
+                  <START-POSITION>0</START-POSITION>
+                </I-SIGNAL-TO-I-PDU-MAPPING>
+              </I-SIGNAL-TO-PDU-MAPPINGS>
+            </I-SIGNAL-I-PDU>
+
+            <!-- Fuel Level PDU -->
+            <I-SIGNAL-I-PDU>
+              <SHORT-NAME>FuelLevel_Pdu</SHORT-NAME>
+              <LENGTH>1</LENGTH>
+              <I-PDU-TIMING-SPECIFICATIONS>
+                <I-PDU-TIMING>
+                  <TRANSMISSION-MODE-DECLARATION>
+                    <TRANSMISSION-MODE-CONDITIONS>
+                      <TRANSMISSION-MODE-CONDITION>
+                        <TRANSMISSION-MODE-TRUE-TIMING>
+                          <CYCLIC-TIMING>
+                            <TIME-PERIOD>
+                              <VALUE>1.0</VALUE>
+                            </TIME-PERIOD>
+                          </CYCLIC-TIMING>
+                        </TRANSMISSION-MODE-TRUE-TIMING>
+                      </TRANSMISSION-MODE-CONDITION>
+                    </TRANSMISSION-MODE-CONDITIONS>
+                  </TRANSMISSION-MODE-DECLARATION>
+                </I-PDU-TIMING>
+              </I-PDU-TIMING-SPECIFICATIONS>
+            </I-SIGNAL-I-PDU>
+
+            <!-- Gear Position PDU -->
+            <I-SIGNAL-I-PDU>
+              <SHORT-NAME>GearPosition_Pdu</SHORT-NAME>
+              <LENGTH>1</LENGTH>
+              <I-PDU-TIMING-SPECIFICATIONS>
+                <I-PDU-TIMING>
+                  <TRANSMISSION-MODE-DECLARATION>
+                    <TRANSMISSION-MODE-CONDITIONS>
+                      <TRANSMISSION-MODE-CONDITION>
+                        <TRANSMISSION-MODE-TRUE-TIMING>
+                          <EVENT-CONTROLLED-TIMING/>
+                        </TRANSMISSION-MODE-TRUE-TIMING>
+                      </TRANSMISSION-MODE-CONDITION>
+                    </TRANSMISSION-MODE-CONDITIONS>
+                  </TRANSMISSION-MODE-DECLARATION>
+                </I-PDU-TIMING>
+              </I-PDU-TIMING-SPECIFICATIONS>
+            </I-SIGNAL-I-PDU>
+
+            <!-- Door Status PDU -->
+            <I-SIGNAL-I-PDU>
+              <SHORT-NAME>DoorStatus_Pdu</SHORT-NAME>
+              <ADMIN-DATA>
+                <SDGS>
+                  <SDG GID="DV:Security">
+                    <SD GID="DV:SecurityLevel">Medium</SD>
+                  </SDG>
+                </SDGS>
+              </ADMIN-DATA>
+              <LENGTH>1</LENGTH>
+              <I-PDU-TIMING-SPECIFICATIONS>
+                <I-PDU-TIMING>
+                  <TRANSMISSION-MODE-DECLARATION>
+                    <TRANSMISSION-MODE-CONDITIONS>
+                      <TRANSMISSION-MODE-CONDITION>
+                        <TRANSMISSION-MODE-TRUE-TIMING>
+                          <EVENT-CONTROLLED-TIMING/>
+                        </TRANSMISSION-MODE-TRUE-TIMING>
+                      </TRANSMISSION-MODE-CONDITION>
+                    </TRANSMISSION-MODE-CONDITIONS>
+                  </TRANSMISSION-MODE-DECLARATION>
+                </I-PDU-TIMING>
+              </I-PDU-TIMING-SPECIFICATIONS>
+            </I-SIGNAL-I-PDU>
+
+            <!-- Seatbelt Status PDU -->
+            <I-SIGNAL-I-PDU>
+              <SHORT-NAME>SeatbeltStatus_Pdu</SHORT-NAME>
+              <ADMIN-DATA>
+                <SDGS>
+                  <SDG GID="DV:Security">
+                    <SD GID="DV:SecurityLevel">Medium</SD>
+                  </SDG>
+                </SDGS>
+              </ADMIN-DATA>
+              <LENGTH>1</LENGTH>
+            </I-SIGNAL-I-PDU>
+
+            <!-- Light Status PDU -->
+            <I-SIGNAL-I-PDU>
+              <SHORT-NAME>LightStatus_Pdu</SHORT-NAME>
+              <LENGTH>2</LENGTH>
+            </I-SIGNAL-I-PDU>
+
+            <!-- Remote Door Lock PDU (Security Critical) -->
+            <I-SIGNAL-I-PDU>
+              <SHORT-NAME>RemoteDoorLock_Pdu</SHORT-NAME>
+              <ADMIN-DATA>
+                <SDGS>
+                  <SDG GID="DV:Security">
+                    <SD GID="DV:SecurityLevel">Critical</SD>
+                    <SD GID="DV:AuthRequired">true</SD>
+                    <SD GID="DV:EncryptionRequired">true</SD>
+                  </SDG>
+                </SDGS>
+              </ADMIN-DATA>
+              <LENGTH>2</LENGTH>
+              <I-PDU-TIMING-SPECIFICATIONS>
+                <I-PDU-TIMING>
+                  <TRANSMISSION-MODE-DECLARATION>
+                    <TRANSMISSION-MODE-CONDITIONS>
+                      <TRANSMISSION-MODE-CONDITION>
+                        <TRANSMISSION-MODE-TRUE-TIMING>
+                          <EVENT-CONTROLLED-TIMING/>
+                        </TRANSMISSION-MODE-TRUE-TIMING>
+                      </TRANSMISSION-MODE-CONDITION>
+                    </TRANSMISSION-MODE-CONDITIONS>
+                  </TRANSMISSION-MODE-DECLARATION>
+                </I-PDU-TIMING>
+              </I-PDU-TIMING-SPECIFICATIONS>
+            </I-SIGNAL-I-PDU>
+
+            <!-- Remote Door Unlock PDU (Security Critical) -->
+            <I-SIGNAL-I-PDU>
+              <SHORT-NAME>RemoteDoorUnlock_Pdu</SHORT-NAME>
+              <ADMIN-DATA>
+                <SDGS>
+                  <SDG GID="DV:Security">
+                    <SD GID="DV:SecurityLevel">Critical</SD>
+                    <SD GID="DV:AuthRequired">true</SD>
+                    <SD GID="DV:EncryptionRequired">true</SD>
+                  </SDG>
+                </SDGS>
+              </ADMIN-DATA>
+              <LENGTH>2</LENGTH>
+              <I-PDU-TIMING-SPECIFICATIONS>
+                <I-PDU-TIMING>
+                  <TRANSMISSION-MODE-DECLARATION>
+                    <TRANSMISSION-MODE-CONDITIONS>
+                      <TRANSMISSION-MODE-CONDITION>
+                        <TRANSMISSION-MODE-TRUE-TIMING>
+                          <EVENT-CONTROLLED-TIMING/>
+                        </TRANSMISSION-MODE-TRUE-TIMING>
+                      </TRANSMISSION-MODE-CONDITION>
+                    </TRANSMISSION-MODE-CONDITIONS>
+                  </TRANSMISSION-MODE-DECLARATION>
+                </I-PDU-TIMING>
+              </I-PDU-TIMING-SPECIFICATIONS>
+            </I-SIGNAL-I-PDU>
+
+            <!-- Remote Engine Start PDU (Security Critical) -->
+            <I-SIGNAL-I-PDU>
+              <SHORT-NAME>RemoteEngineStart_Pdu</SHORT-NAME>
+              <ADMIN-DATA>
+                <SDGS>
+                  <SDG GID="DV:Security">
+                    <SD GID="DV:SecurityLevel">Critical</SD>
+                    <SD GID="DV:AuthRequired">true</SD>
+                    <SD GID="DV:EncryptionRequired">true</SD>
+                    <SD GID="DV:SafetyRelevant">true</SD>
+                  </SDG>
+                </SDGS>
+              </ADMIN-DATA>
+              <LENGTH>4</LENGTH>
+            </I-SIGNAL-I-PDU>
+
+            <!-- Diagnostic Request PDU -->
+            <I-SIGNAL-I-PDU>
+              <SHORT-NAME>DiagRequest_Pdu</SHORT-NAME>
+              <ADMIN-DATA>
+                <SDGS>
+                  <SDG GID="DV:Security">
+                    <SD GID="DV:SecurityLevel">High</SD>
+                    <SD GID="DV:Protocol">UDS</SD>
+                  </SDG>
+                </SDGS>
+              </ADMIN-DATA>
+              <LENGTH>8</LENGTH>
+            </I-SIGNAL-I-PDU>
+
+            <!-- Diagnostic Response PDU -->
+            <I-SIGNAL-I-PDU>
+              <SHORT-NAME>DiagResponse_Pdu</SHORT-NAME>
+              <ADMIN-DATA>
+                <SDGS>
+                  <SDG GID="DV:Security">
+                    <SD GID="DV:SecurityLevel">High</SD>
+                    <SD GID="DV:Protocol">UDS</SD>
+                  </SDG>
+                </SDGS>
+              </ADMIN-DATA>
+              <LENGTH>8</LENGTH>
+            </I-SIGNAL-I-PDU>
+          </ELEMENTS>
+        </AR-PACKAGE>
+
+        <!-- I-Signals -->
+        <AR-PACKAGE>
+          <SHORT-NAME>ISignals</SHORT-NAME>
+          <ELEMENTS>
+            <!-- Vehicle Speed Signal -->
+            <I-SIGNAL>
+              <SHORT-NAME>VehicleSpeed</SHORT-NAME>
+              <LONG-NAME><L-4 L="EN">Vehicle Speed</L-4></LONG-NAME>
+              <I-SIGNAL-TYPE>PRIMITIVE</I-SIGNAL-TYPE>
+              <INIT-VALUE>
+                <NUMERICAL-VALUE-SPECIFICATION>
+                  <VALUE>0</VALUE>
+                </NUMERICAL-VALUE-SPECIFICATION>
+              </INIT-VALUE>
+              <LENGTH>16</LENGTH>
+              <NETWORK-REPRESENTATION-PROPS>
+                <SW-DATA-DEF-PROPS-VARIANTS>
+                  <SW-DATA-DEF-PROPS-CONDITIONAL>
+                    <COMPU-METHOD-REF DEST="COMPU-METHOD">/IVI_System/CompuMethods/VehicleSpeed_CompuMethod</COMPU-METHOD-REF>
+                    <UNIT-REF DEST="UNIT">/IVI_System/Units/kmh</UNIT-REF>
+                  </SW-DATA-DEF-PROPS-CONDITIONAL>
+                </SW-DATA-DEF-PROPS-VARIANTS>
+              </NETWORK-REPRESENTATION-PROPS>
+            </I-SIGNAL>
+
+            <!-- Engine RPM Signal -->
+            <I-SIGNAL>
+              <SHORT-NAME>EngineRPM</SHORT-NAME>
+              <LONG-NAME><L-4 L="EN">Engine Rotation Speed</L-4></LONG-NAME>
+              <I-SIGNAL-TYPE>PRIMITIVE</I-SIGNAL-TYPE>
+              <LENGTH>16</LENGTH>
+              <NETWORK-REPRESENTATION-PROPS>
+                <SW-DATA-DEF-PROPS-VARIANTS>
+                  <SW-DATA-DEF-PROPS-CONDITIONAL>
+                    <COMPU-METHOD-REF DEST="COMPU-METHOD">/IVI_System/CompuMethods/EngineRPM_CompuMethod</COMPU-METHOD-REF>
+                    <UNIT-REF DEST="UNIT">/IVI_System/Units/rpm</UNIT-REF>
+                  </SW-DATA-DEF-PROPS-CONDITIONAL>
+                </SW-DATA-DEF-PROPS-VARIANTS>
+              </NETWORK-REPRESENTATION-PROPS>
+            </I-SIGNAL>
+          </ELEMENTS>
+        </AR-PACKAGE>
+
+        <!-- Computation Methods -->
+        <AR-PACKAGE>
+          <SHORT-NAME>CompuMethods</SHORT-NAME>
+          <ELEMENTS>
+            <COMPU-METHOD>
+              <SHORT-NAME>VehicleSpeed_CompuMethod</SHORT-NAME>
+              <CATEGORY>LINEAR</CATEGORY>
+              <COMPU-INTERNAL-TO-PHYS>
+                <COMPU-SCALES>
+                  <COMPU-SCALE>
+                    <COMPU-RATIONAL-COEFFS>
+                      <COMPU-NUMERATOR>
+                        <V>0</V>
+                        <V>0.01</V>
+                      </COMPU-NUMERATOR>
+                      <COMPU-DENOMINATOR>
+                        <V>1</V>
+                      </COMPU-DENOMINATOR>
+                    </COMPU-RATIONAL-COEFFS>
+                  </COMPU-SCALE>
+                </COMPU-SCALES>
+              </COMPU-INTERNAL-TO-PHYS>
+            </COMPU-METHOD>
+
+            <COMPU-METHOD>
+              <SHORT-NAME>EngineRPM_CompuMethod</SHORT-NAME>
+              <CATEGORY>LINEAR</CATEGORY>
+              <COMPU-INTERNAL-TO-PHYS>
+                <COMPU-SCALES>
+                  <COMPU-SCALE>
+                    <COMPU-RATIONAL-COEFFS>
+                      <COMPU-NUMERATOR>
+                        <V>0</V>
+                        <V>0.25</V>
+                      </COMPU-NUMERATOR>
+                      <COMPU-DENOMINATOR>
+                        <V>1</V>
+                      </COMPU-DENOMINATOR>
+                    </COMPU-RATIONAL-COEFFS>
+                  </COMPU-SCALE>
+                </COMPU-SCALES>
+              </COMPU-INTERNAL-TO-PHYS>
+            </COMPU-METHOD>
+          </ELEMENTS>
+        </AR-PACKAGE>
+
+        <!-- Units -->
+        <AR-PACKAGE>
+          <SHORT-NAME>Units</SHORT-NAME>
+          <ELEMENTS>
+            <UNIT>
+              <SHORT-NAME>kmh</SHORT-NAME>
+              <LONG-NAME><L-4 L="EN">Kilometers per Hour</L-4></LONG-NAME>
+              <DISPLAY-NAME>km/h</DISPLAY-NAME>
+            </UNIT>
+            <UNIT>
+              <SHORT-NAME>rpm</SHORT-NAME>
+              <LONG-NAME><L-4 L="EN">Revolutions per Minute</L-4></LONG-NAME>
+              <DISPLAY-NAME>RPM</DISPLAY-NAME>
+            </UNIT>
+            <UNIT>
+              <SHORT-NAME>percent</SHORT-NAME>
+              <LONG-NAME><L-4 L="EN">Percentage</L-4></LONG-NAME>
+              <DISPLAY-NAME>%</DISPLAY-NAME>
+            </UNIT>
+            <UNIT>
+              <SHORT-NAME>kPa</SHORT-NAME>
+              <LONG-NAME><L-4 L="EN">Kilopascal</L-4></LONG-NAME>
+              <DISPLAY-NAME>kPa</DISPLAY-NAME>
+            </UNIT>
+          </ELEMENTS>
+        </AR-PACKAGE>
+
+        <!-- Frame Triggerings (CAN ID assignments) -->
+        <AR-PACKAGE>
+          <SHORT-NAME>FrameTriggerings</SHORT-NAME>
+          <ELEMENTS>
+            <CAN-FRAME-TRIGGERING>
+              <SHORT-NAME>VehicleSpeed_FrameTrig</SHORT-NAME>
+              <IDENTIFIER>291</IDENTIFIER><!-- 0x123 -->
+              <FRAME-PORT-REFS>
+                <FRAME-PORT-REF DEST="FRAME-PORT">/IVI_System/EcuInstances/Gateway/VehicleSpeed_TxPort</FRAME-PORT-REF>
+                <FRAME-PORT-REF DEST="FRAME-PORT">/IVI_System/EcuInstances/IVI_HeadUnit/VehicleSpeed_RxPort</FRAME-PORT-REF>
+              </FRAME-PORT-REFS>
+              <I-PDU-TRIGGERINGS>
+                <I-PDU-TRIGGERING>
+                  <SHORT-NAME>VehicleSpeed_PduTrig</SHORT-NAME>
+                  <I-PDU-REF DEST="I-SIGNAL-I-PDU">/IVI_System/IPdus/VehicleSpeed_Pdu</I-PDU-REF>
+                </I-PDU-TRIGGERING>
+              </I-PDU-TRIGGERINGS>
+            </CAN-FRAME-TRIGGERING>
+
+            <CAN-FRAME-TRIGGERING>
+              <SHORT-NAME>EngineRPM_FrameTrig</SHORT-NAME>
+              <IDENTIFIER>292</IDENTIFIER><!-- 0x124 -->
+            </CAN-FRAME-TRIGGERING>
+
+            <CAN-FRAME-TRIGGERING>
+              <SHORT-NAME>FuelLevel_FrameTrig</SHORT-NAME>
+              <IDENTIFIER>293</IDENTIFIER><!-- 0x125 -->
+            </CAN-FRAME-TRIGGERING>
+
+            <CAN-FRAME-TRIGGERING>
+              <SHORT-NAME>GearPosition_FrameTrig</SHORT-NAME>
+              <IDENTIFIER>294</IDENTIFIER><!-- 0x126 -->
+            </CAN-FRAME-TRIGGERING>
+
+            <CAN-FRAME-TRIGGERING>
+              <SHORT-NAME>DoorStatus_FrameTrig</SHORT-NAME>
+              <IDENTIFIER>512</IDENTIFIER><!-- 0x200 -->
+            </CAN-FRAME-TRIGGERING>
+
+            <CAN-FRAME-TRIGGERING>
+              <SHORT-NAME>SeatbeltStatus_FrameTrig</SHORT-NAME>
+              <IDENTIFIER>513</IDENTIFIER><!-- 0x201 -->
+            </CAN-FRAME-TRIGGERING>
+
+            <CAN-FRAME-TRIGGERING>
+              <SHORT-NAME>RemoteDoorLock_FrameTrig</SHORT-NAME>
+              <IDENTIFIER>1280</IDENTIFIER><!-- 0x500 -->
+              <ADMIN-DATA>
+                <SDGS>
+                  <SDG GID="DV:Security">
+                    <SD GID="DV:SecurityLevel">Critical</SD>
+                  </SDG>
+                </SDGS>
+              </ADMIN-DATA>
+            </CAN-FRAME-TRIGGERING>
+
+            <CAN-FRAME-TRIGGERING>
+              <SHORT-NAME>RemoteDoorUnlock_FrameTrig</SHORT-NAME>
+              <IDENTIFIER>1281</IDENTIFIER><!-- 0x501 -->
+              <ADMIN-DATA>
+                <SDGS>
+                  <SDG GID="DV:Security">
+                    <SD GID="DV:SecurityLevel">Critical</SD>
+                  </SDG>
+                </SDGS>
+              </ADMIN-DATA>
+            </CAN-FRAME-TRIGGERING>
+
+            <CAN-FRAME-TRIGGERING>
+              <SHORT-NAME>RemoteEngineStart_FrameTrig</SHORT-NAME>
+              <IDENTIFIER>1282</IDENTIFIER><!-- 0x502 -->
+              <ADMIN-DATA>
+                <SDGS>
+                  <SDG GID="DV:Security">
+                    <SD GID="DV:SecurityLevel">Critical</SD>
+                    <SD GID="DV:SafetyRelevant">true</SD>
+                  </SDG>
+                </SDGS>
+              </ADMIN-DATA>
+            </CAN-FRAME-TRIGGERING>
+
+            <CAN-FRAME-TRIGGERING>
+              <SHORT-NAME>DiagRequest_FrameTrig</SHORT-NAME>
+              <IDENTIFIER>2015</IDENTIFIER><!-- 0x7DF OBD-II functional request -->
+            </CAN-FRAME-TRIGGERING>
+
+            <CAN-FRAME-TRIGGERING>
+              <SHORT-NAME>DiagResponse_FrameTrig</SHORT-NAME>
+              <IDENTIFIER>2024</IDENTIFIER><!-- 0x7E8 -->
+            </CAN-FRAME-TRIGGERING>
+          </ELEMENTS>
+        </AR-PACKAGE>
+
+      </AR-PACKAGES>
+    </AR-PACKAGE>
+  </AR-PACKAGES>
+</AUTOSAR>

@@ -1,0 +1,160 @@
+VERSION ""
+
+NS_ :
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_REL_
+	BA_SGTYPE_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: IVI Gateway BCM HVAC Amplifier TPMS Cluster External
+
+VAL_TABLE_ GearPosition 0 "Park" 1 "Reverse" 2 "Neutral" 3 "Drive" 4 "Sport" ;
+
+BO_ 291 VehicleSpeed: 2 Gateway
+ SG_ VehicleSpeed : 0|16@1+ (0.01,0) [0|655.35] "km/h" IVI
+
+BO_ 292 EngineRPM: 2 Gateway
+ SG_ EngineRPM : 0|16@1+ (0.25,0) [0|16383.75] "rpm" IVI
+
+BO_ 293 FuelLevel: 1 Gateway
+ SG_ FuelLevel : 0|8@1+ (1,0) [0|100] "%" IVI
+
+BO_ 294 GearPosition: 1 Gateway
+ SG_ GearPosition : 0|4@1+ (1,0) [0|4] "" IVI
+
+BO_ 295 ParkingBrakeStatus: 1 Gateway
+ SG_ ParkingBrake : 0|1@1+ (1,0) [0|1] "" IVI
+
+BO_ 512 DoorStatus: 1 BCM
+ SG_ DoorFL : 0|1@1+ (1,0) [0|1] "" IVI
+ SG_ DoorFR : 1|1@1+ (1,0) [0|1] "" IVI
+ SG_ DoorRL : 2|1@1+ (1,0) [0|1] "" IVI
+ SG_ DoorRR : 3|1@1+ (1,0) [0|1] "" IVI
+ SG_ Trunk : 4|1@1+ (1,0) [0|1] "" IVI
+ SG_ Hood : 5|1@1+ (1,0) [0|1] "" IVI
+
+BO_ 513 SeatbeltStatus: 1 BCM
+ SG_ SeatbeltDriver : 0|1@1+ (1,0) [0|1] "" IVI
+ SG_ SeatbeltPassenger : 1|1@1+ (1,0) [0|1] "" IVI
+ SG_ SeatbeltRL : 2|1@1+ (1,0) [0|1] "" IVI
+ SG_ SeatbeltRR : 3|1@1+ (1,0) [0|1] "" IVI
+
+BO_ 514 LightStatus: 2 BCM
+ SG_ Headlight : 0|2@1+ (1,0) [0|3] "" IVI
+ SG_ TurnSignalLeft : 2|1@1+ (1,0) [0|1] "" IVI
+ SG_ TurnSignalRight : 3|1@1+ (1,0) [0|1] "" IVI
+ SG_ Hazard : 4|1@1+ (1,0) [0|1] "" IVI
+ SG_ FogLightFront : 5|1@1+ (1,0) [0|1] "" IVI
+ SG_ FogLightRear : 6|1@1+ (1,0) [0|1] "" IVI
+
+BO_ 768 ClimateControl: 4 IVI
+ SG_ TempSetpointDriver : 0|8@1+ (0.5,15) [15|32] "C" HVAC
+ SG_ TempSetpointPassenger : 8|8@1+ (0.5,15) [15|32] "C" HVAC
+ SG_ FanSpeed : 16|4@1+ (1,0) [0|8] "" HVAC
+ SG_ ACRequest : 20|1@1+ (1,0) [0|1] "" HVAC
+ SG_ Recirculation : 21|1@1+ (1,0) [0|1] "" HVAC
+ SG_ AutoMode : 22|1@1+ (1,0) [0|1] "" HVAC
+
+BO_ 1024 MediaControl: 2 IVI
+ SG_ AudioSource : 0|4@1+ (1,0) [0|15] "" Amplifier
+ SG_ Volume : 4|6@1+ (1,0) [0|63] "" Amplifier
+ SG_ Mute : 10|1@1+ (1,0) [0|1] "" Amplifier
+ SG_ Balance : 11|4@1- (1,0) [-8|7] "" Amplifier
+
+BO_ 304 TirePressure_FL: 2 TPMS
+ SG_ TirePressureFL : 0|16@1+ (0.1,0) [0|1000] "kPa" IVI
+
+BO_ 305 TirePressure_FR: 2 TPMS
+ SG_ TirePressureFR : 0|16@1+ (0.1,0) [0|1000] "kPa" IVI
+
+BO_ 306 TirePressure_RL: 2 TPMS
+ SG_ TirePressureRL : 0|16@1+ (0.1,0) [0|1000] "kPa" IVI
+
+BO_ 307 TirePressure_RR: 2 TPMS
+ SG_ TirePressureRR : 0|16@1+ (0.1,0) [0|1000] "kPa" IVI
+
+BO_ 1280 RemoteDoorLock: 8 IVI
+ SG_ LockCommand : 0|8@1+ (1,0) [0|255] "" BCM
+ SG_ AuthToken : 8|32@1+ (1,0) [0|4294967295] "" BCM
+ SG_ Timestamp : 40|24@1+ (1,0) [0|16777215] "s" BCM
+
+BO_ 1281 RemoteDoorUnlock: 8 IVI
+ SG_ UnlockCommand : 0|8@1+ (1,0) [0|255] "" BCM
+ SG_ AuthToken : 8|32@1+ (1,0) [0|4294967295] "" BCM
+ SG_ Timestamp : 40|24@1+ (1,0) [0|16777215] "s" BCM
+
+BO_ 1536 NavigationGuidance: 8 IVI
+ SG_ ManeuverType : 0|8@1+ (1,0) [0|255] "" Cluster
+ SG_ DistanceToManeuver : 8|16@1+ (1,0) [0|65535] "m" Cluster
+ SG_ RoadNameIndex : 24|16@1+ (1,0) [0|65535] "" Cluster
+ SG_ SpeedLimit : 40|8@1+ (1,0) [0|255] "km/h" Cluster
+ SG_ LaneGuidance : 48|8@1+ (1,0) [0|255] "" Cluster
+
+BO_ 2015 DiagRequest: 8 External
+ SG_ DiagData : 0|64@1+ (1,0) [0|0] "" IVI
+
+BO_ 2024 DiagResponse: 8 IVI
+ SG_ DiagResponse : 0|64@1+ (1,0) [0|0] "" External
+
+CM_ BU_ IVI "In-Vehicle Infotainment Head Unit";
+CM_ BU_ Gateway "Central Vehicle Gateway ECU";
+CM_ BU_ BCM "Body Control Module";
+CM_ BU_ HVAC "HVAC Control Module";
+CM_ BU_ Amplifier "Audio Amplifier";
+CM_ BU_ TPMS "Tire Pressure Monitoring System";
+CM_ BU_ Cluster "Instrument Cluster";
+CM_ BU_ External "External Diagnostic Tool (OBD-II)";
+
+CM_ BO_ 291 "Vehicle speed from wheel sensors";
+CM_ BO_ 292 "Engine RPM from ECM";
+CM_ BO_ 512 "Door and trunk open/close status";
+CM_ BO_ 1280 "Remote door lock command with authentication";
+CM_ BO_ 1281 "Remote door unlock command with authentication";
+CM_ BO_ 2015 "OBD-II diagnostic request (ISO 15765-4)";
+CM_ BO_ 2024 "OBD-II diagnostic response (ISO 15765-4)";
+
+CM_ SG_ 1280 AuthToken "Rolling code authentication token";
+CM_ SG_ 1281 AuthToken "Rolling code authentication token";
+
+BA_DEF_ BO_ "GenMsgCycleTime" INT 0 10000;
+BA_DEF_ BO_ "SecurityLevel" STRING;
+BA_DEF_DEF_ "GenMsgCycleTime" 0;
+BA_DEF_DEF_ "SecurityLevel" "Low";
+
+BA_ "GenMsgCycleTime" BO_ 291 100;
+BA_ "GenMsgCycleTime" BO_ 292 50;
+BA_ "GenMsgCycleTime" BO_ 293 1000;
+BA_ "GenMsgCycleTime" BO_ 512 0;
+BA_ "GenMsgCycleTime" BO_ 304 5000;
+BA_ "GenMsgCycleTime" BO_ 1536 100;
+
+BA_ "SecurityLevel" BO_ 1280 "Critical";
+BA_ "SecurityLevel" BO_ 1281 "Critical";
+BA_ "SecurityLevel" BO_ 2015 "High";
+BA_ "SecurityLevel" BO_ 2024 "High";
+
+VAL_ 294 GearPosition 0 "Park" 1 "Reverse" 2 "Neutral" 3 "Drive" 4 "Sport" ;
+VAL_ 514 Headlight 0 "Off" 1 "Position" 2 "Low Beam" 3 "High Beam" ;
+VAL_ 1024 AudioSource 0 "Off" 1 "Radio_FM" 2 "Radio_AM" 3 "USB" 4 "Bluetooth" 5 "AUX" 6 "CarPlay" 7 "AndroidAuto" ;

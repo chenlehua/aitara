@@ -1,0 +1,374 @@
+{
+  "system": {
+    "id": "IVI-001",
+    "name": "In-Vehicle Infotainment System",
+    "version": "2024.1",
+    "vehicle_model": "EV-Sedan-2024",
+    "oem": "Sample Automotive"
+  },
+  "trust_boundaries": [
+    {
+      "id": "TB-001",
+      "name": "External World",
+      "level": 0,
+      "description": "Untrusted external environment including internet, Bluetooth devices, USB peripherals"
+    },
+    {
+      "id": "TB-002",
+      "name": "IVI User Space",
+      "level": 1,
+      "description": "Android user space applications and services"
+    },
+    {
+      "id": "TB-003",
+      "name": "IVI Kernel Space",
+      "level": 2,
+      "description": "Linux kernel and trusted drivers"
+    },
+    {
+      "id": "TB-004",
+      "name": "Secure World (TrustZone)",
+      "level": 3,
+      "description": "ARM TrustZone secure execution environment"
+    },
+    {
+      "id": "TB-005",
+      "name": "Vehicle Network",
+      "level": 2,
+      "description": "Internal CAN/LIN/Ethernet vehicle bus network"
+    }
+  ],
+  "components": [
+    {
+      "id": "COMP-001",
+      "name": "IVI Head Unit",
+      "type": "ECU",
+      "trust_boundary": "TB-002",
+      "description": "Main IVI computing unit based on Qualcomm SA8155P"
+    },
+    {
+      "id": "COMP-002",
+      "name": "WiFi Module",
+      "type": "Hardware",
+      "trust_boundary": "TB-001",
+      "description": "WiFi 6 connectivity module (QCA6595AU)"
+    },
+    {
+      "id": "COMP-003",
+      "name": "Bluetooth Module",
+      "type": "Hardware",
+      "trust_boundary": "TB-001",
+      "description": "Bluetooth 5.1 module for phone pairing and audio streaming"
+    },
+    {
+      "id": "COMP-004",
+      "name": "4G/LTE Modem",
+      "type": "Hardware",
+      "trust_boundary": "TB-001",
+      "description": "Cellular connectivity for cloud services and OTA updates"
+    },
+    {
+      "id": "COMP-005",
+      "name": "GNSS Receiver",
+      "type": "Hardware",
+      "trust_boundary": "TB-001",
+      "description": "GPS/GLONASS/Galileo receiver for positioning"
+    },
+    {
+      "id": "COMP-006",
+      "name": "USB Host Controller",
+      "type": "Hardware",
+      "trust_boundary": "TB-001",
+      "description": "USB 2.0 interface for external devices"
+    },
+    {
+      "id": "COMP-007",
+      "name": "Ethernet Interface",
+      "type": "Hardware",
+      "trust_boundary": "TB-005",
+      "description": "100BASE-T1 automotive Ethernet to vehicle gateway"
+    },
+    {
+      "id": "COMP-008",
+      "name": "CAN Interface",
+      "type": "Hardware",
+      "trust_boundary": "TB-005",
+      "description": "CAN bus transceiver for vehicle signal communication"
+    },
+    {
+      "id": "COMP-009",
+      "name": "Audio Subsystem",
+      "type": "Hardware",
+      "trust_boundary": "TB-002",
+      "description": "Audio codec and amplifier for speakers and microphones"
+    },
+    {
+      "id": "COMP-010",
+      "name": "Display Subsystem",
+      "type": "Hardware",
+      "trust_boundary": "TB-002",
+      "description": "LCD panel and touch controller"
+    },
+    {
+      "id": "COMP-011",
+      "name": "HSM (Hardware Security Module)",
+      "type": "Hardware",
+      "trust_boundary": "TB-004",
+      "description": "Infineon SLI97 HSM for key storage and crypto operations"
+    },
+    {
+      "id": "COMP-012",
+      "name": "Android OS",
+      "type": "Software",
+      "trust_boundary": "TB-002",
+      "description": "Android Automotive OS 12"
+    },
+    {
+      "id": "COMP-013",
+      "name": "Linux Kernel",
+      "type": "Software",
+      "trust_boundary": "TB-003",
+      "description": "Linux kernel 5.4 with automotive patches"
+    },
+    {
+      "id": "COMP-014",
+      "name": "TEE OS",
+      "type": "Software",
+      "trust_boundary": "TB-004",
+      "description": "Trusted Execution Environment OS"
+    },
+    {
+      "id": "COMP-015",
+      "name": "Navigation Application",
+      "type": "Software",
+      "trust_boundary": "TB-002",
+      "description": "Turn-by-turn navigation app"
+    },
+    {
+      "id": "COMP-016",
+      "name": "Media Player Application",
+      "type": "Software",
+      "trust_boundary": "TB-002",
+      "description": "Audio/video playback application"
+    },
+    {
+      "id": "COMP-017",
+      "name": "Phone Application",
+      "type": "Software",
+      "trust_boundary": "TB-002",
+      "description": "Hands-free calling and contact sync"
+    },
+    {
+      "id": "COMP-018",
+      "name": "OTA Update Service",
+      "type": "Software",
+      "trust_boundary": "TB-003",
+      "description": "Firmware update service with signature verification"
+    },
+    {
+      "id": "COMP-019",
+      "name": "Vehicle HAL",
+      "type": "Software",
+      "trust_boundary": "TB-003",
+      "description": "Vehicle Hardware Abstraction Layer"
+    },
+    {
+      "id": "COMP-020",
+      "name": "Web Browser",
+      "type": "Software",
+      "trust_boundary": "TB-002",
+      "description": "Chromium-based web browser"
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "IF-001",
+      "name": "WiFi Interface",
+      "type": "Wireless",
+      "protocol": "IEEE 802.11ax",
+      "access_level": "Public",
+      "component": "COMP-002"
+    },
+    {
+      "id": "IF-002",
+      "name": "Bluetooth Interface",
+      "type": "Wireless",
+      "protocol": "Bluetooth 5.1 BR/EDR/LE",
+      "access_level": "Public",
+      "component": "COMP-003"
+    },
+    {
+      "id": "IF-003",
+      "name": "LTE Interface",
+      "type": "Wireless",
+      "protocol": "4G LTE Cat-12",
+      "access_level": "Public_Cellular",
+      "component": "COMP-004"
+    },
+    {
+      "id": "IF-004",
+      "name": "GNSS Antenna",
+      "type": "Wireless",
+      "protocol": "GPS L1/L5, GLONASS, Galileo",
+      "access_level": "Public",
+      "component": "COMP-005"
+    },
+    {
+      "id": "IF-005",
+      "name": "USB Port (Front)",
+      "type": "Physical",
+      "protocol": "USB 2.0",
+      "access_level": "Physical",
+      "component": "COMP-006"
+    },
+    {
+      "id": "IF-006",
+      "name": "USB Port (Rear)",
+      "type": "Physical",
+      "protocol": "USB 2.0",
+      "access_level": "Physical",
+      "component": "COMP-006"
+    },
+    {
+      "id": "IF-007",
+      "name": "Ethernet Port (Internal)",
+      "type": "Wired",
+      "protocol": "100BASE-T1",
+      "access_level": "Internal",
+      "component": "COMP-007"
+    },
+    {
+      "id": "IF-008",
+      "name": "CAN Bus",
+      "type": "Wired",
+      "protocol": "CAN 2.0B",
+      "access_level": "Internal",
+      "component": "COMP-008"
+    },
+    {
+      "id": "IF-009",
+      "name": "Debug UART",
+      "type": "Physical",
+      "protocol": "UART 115200 8N1",
+      "access_level": "Debug",
+      "component": "COMP-001"
+    },
+    {
+      "id": "IF-010",
+      "name": "JTAG Interface",
+      "type": "Physical",
+      "protocol": "JTAG",
+      "access_level": "Debug",
+      "component": "COMP-001"
+    },
+    {
+      "id": "IF-011",
+      "name": "SD Card Slot",
+      "type": "Physical",
+      "protocol": "SDIO",
+      "access_level": "Physical",
+      "component": "COMP-001"
+    }
+  ],
+  "connections": [
+    {
+      "id": "CONN-001",
+      "source": "IF-001",
+      "target": "COMP-012",
+      "protocol": "TCP/IP",
+      "data_type": "Network Traffic",
+      "encryption": "WPA3",
+      "authentication": "WPA3-SAE"
+    },
+    {
+      "id": "CONN-002",
+      "source": "IF-002",
+      "target": "COMP-017",
+      "protocol": "Bluetooth HFP/A2DP/AVRCP",
+      "data_type": "Audio/Contacts",
+      "encryption": "E0/AES-CCM",
+      "authentication": "Secure Simple Pairing"
+    },
+    {
+      "id": "CONN-003",
+      "source": "IF-003",
+      "target": "COMP-018",
+      "protocol": "HTTPS",
+      "data_type": "OTA Updates",
+      "encryption": "TLS 1.3",
+      "authentication": "Certificate Pinning"
+    },
+    {
+      "id": "CONN-004",
+      "source": "IF-004",
+      "target": "COMP-015",
+      "protocol": "NMEA 0183",
+      "data_type": "Position Data",
+      "encryption": "None",
+      "authentication": "None"
+    },
+    {
+      "id": "CONN-005",
+      "source": "IF-005",
+      "target": "COMP-016",
+      "protocol": "USB Mass Storage/MTP",
+      "data_type": "Media Files",
+      "encryption": "None",
+      "authentication": "None"
+    },
+    {
+      "id": "CONN-006",
+      "source": "IF-007",
+      "target": "COMP-019",
+      "protocol": "DoIP/SOME/IP",
+      "data_type": "Vehicle Signals",
+      "encryption": "MACsec (optional)",
+      "authentication": "None"
+    },
+    {
+      "id": "CONN-007",
+      "source": "IF-008",
+      "target": "COMP-019",
+      "protocol": "CAN 2.0B",
+      "data_type": "Vehicle Signals",
+      "encryption": "None",
+      "authentication": "None"
+    },
+    {
+      "id": "CONN-008",
+      "source": "COMP-019",
+      "target": "COMP-012",
+      "protocol": "Vehicle HAL HIDL",
+      "data_type": "Vehicle Properties",
+      "encryption": "N/A",
+      "authentication": "SELinux"
+    },
+    {
+      "id": "CONN-009",
+      "source": "COMP-012",
+      "target": "COMP-011",
+      "protocol": "Keymaster HAL",
+      "data_type": "Crypto Operations",
+      "encryption": "N/A",
+      "authentication": "TrustZone"
+    },
+    {
+      "id": "CONN-010",
+      "source": "COMP-020",
+      "target": "IF-001",
+      "protocol": "HTTPS",
+      "data_type": "Web Content",
+      "encryption": "TLS 1.2/1.3",
+      "authentication": "Certificate Validation"
+    },
+    {
+      "id": "CONN-011",
+      "source": "IF-003",
+      "target": "COMP-015",
+      "protocol": "HTTPS",
+      "data_type": "Map Data/Traffic",
+      "encryption": "TLS 1.3",
+      "authentication": "API Key"
+    }
+  ]
+}

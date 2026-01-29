@@ -1,0 +1,21 @@
+id,category,name,vendor,version,license,description,known_vulnerabilities,security_config
+SW-001,OS,Android Automotive OS,Google,12.0 (API 31),Apache-2.0,Base operating system,CVE-2022-20465;CVE-2022-20411,SELinux enforcing;Verified Boot
+SW-002,Framework,Android Framework,Google,12.0,Apache-2.0,Core Android services and APIs,,Permission model
+SW-003,Service,Bluetooth Service,AOSP,12.0,Apache-2.0,Bluetooth stack (Fluoride/Gabeldorsche),CVE-2022-20345 (BlueTooth RCE),Secure Simple Pairing
+SW-004,Service,WiFi Service,AOSP,12.0,Apache-2.0,WiFi connectivity manager,,WPA3 support
+SW-005,Service,Location Service,Google,12.0,Proprietary,Location and GNSS service,,Mock location disabled
+SW-006,Library,OpenSSL,OpenSSL Foundation,1.1.1q,OpenSSL,Cryptographic library,CVE-2022-2068;CVE-2022-1292,TLS 1.3 enabled
+SW-007,Library,libcurl,curl project,7.84.0,MIT,HTTP client library,CVE-2022-32206,Certificate pinning
+SW-008,Library,FFmpeg,FFmpeg team,4.4.2,LGPL-2.1,Multimedia framework,CVE-2022-3109,Codec whitelist
+SW-009,Application,Navigation App,OEM,3.5.1,Proprietary,Turn-by-turn navigation,,Encrypted map cache
+SW-010,Application,Media Player,OEM,2.8.0,Proprietary,Audio/video playback,,DRM support (Widevine L1)
+SW-011,Application,Phone App,OEM,4.1.0,Proprietary,Bluetooth hands-free calling,,Contact sync encryption
+SW-012,Application,Settings App,AOSP,12.0,Apache-2.0,System configuration,,Admin restrictions
+SW-013,Application,Browser,Chromium,101.0.4951,BSD-3-Clause,Web browser,CVE-2022-1853;CVE-2022-1854,Sandbox enabled
+SW-014,Service,OTA Update Service,OEM,1.5.0,Proprietary,Firmware update manager,,Signature verification
+SW-015,Service,Vehicle HAL,OEM,2.0.0,Proprietary,Vehicle signal abstraction,,Access control
+SW-016,Library,Protobuf,Google,3.19.4,BSD-3-Clause,Protocol buffers,,
+SW-017,Service,Voice Assistant,OEM,2.3.0,Proprietary,Voice recognition and commands,,Wake word detection
+SW-018,Service,CarPlay Service,Apple,1.0,Proprietary,Apple CarPlay integration,,MFi certified
+SW-019,Service,Android Auto Service,Google,7.8,Proprietary,Android Auto integration,,Google certified
+SW-020,Bootloader,U-Boot,Denx,2022.04,GPL-2.0,Bootloader,CVE-2022-30790,Secure boot chain

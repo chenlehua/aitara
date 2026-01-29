@@ -1,0 +1,17 @@
+id,category,name,manufacturer,model,version,description,security_features,interfaces
+HW-001,SoC,Application Processor,Qualcomm,Snapdragon 8155,SA8155P,Main application processor for IVI,Secure Boot;TrustZone;Crypto Engine,PCIe;USB;MIPI-DSI;I2C;SPI;UART
+HW-002,SoC,Connectivity Module,Qualcomm,QCA6595AU,,WiFi 6 + Bluetooth 5.1 combo chip,WPA3;Secure Simple Pairing,PCIe;UART;I2S
+HW-003,Memory,eMMC Flash,Samsung,KLMBG2JETD-B041,128GB,Main storage for OS and user data,Hardware encryption (AES-256),eMMC 5.1
+HW-004,Memory,LPDDR4X RAM,Micron,MT53E1G32D4NQ-046,8GB,System memory,ECC,LPDDR4X
+HW-005,Communication,4G/LTE Modem,Qualcomm,SDX55,5G capable,Cellular connectivity for telematics,SIM Lock;IMEI binding,USB 3.0;PCIe
+HW-006,Communication,GNSS Receiver,u-blox,NEO-M8U,,GPS/GLONASS/Galileo positioning,Anti-spoofing,UART;I2C
+HW-007,Interface,USB Hub,Microchip,USB2514B,,4-port USB 2.0 hub,None,USB 2.0
+HW-008,Interface,Ethernet PHY,Marvell,88Q2112,,Automotive Ethernet 100BASE-T1,MACsec capable,RGMII
+HW-009,Audio,Audio Codec,Texas Instruments,TAS6424-Q1,,Class-D audio amplifier,None,I2S;I2C
+HW-010,Display,LCD Controller,Novatek,NT35596H,,FHD LCD driver,None,MIPI-DSI
+HW-011,Security,HSM,Infineon,SLI97,,Hardware Security Module,EVITA Full;Key storage,SPI
+HW-012,Interface,CAN Transceiver,NXP,TJA1043,,CAN bus interface to vehicle network,None,CAN;SPI
+HW-013,Interface,LIN Transceiver,NXP,TJA1021,,LIN bus interface,None,LIN;UART
+HW-014,Sensor,Microphone Array,Knowles,SPH0645LM4H,,4-mic array for voice control,None,I2S
+HW-015,Interface,SD Card Slot,Molex,503182-1852,,External storage interface,None,SDIO
+HW-016,Camera,Rear Camera Input,Analog Devices,ADV7282A-M,,CVBS video decoder for rear camera,None,I2C;BT.656

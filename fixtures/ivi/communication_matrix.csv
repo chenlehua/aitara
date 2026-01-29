@@ -1,0 +1,25 @@
+signal_id,signal_name,can_id,pgn,source_node,destination_node,length_bytes,cycle_time_ms,signal_type,data_encoding,security_level,description
+SIG-001,VehicleSpeed,0x123,,Gateway,IVI,2,100,Cyclic,Unsigned 16-bit (0.01 km/h),Medium,Current vehicle speed
+SIG-002,EngineRPM,0x124,,Gateway,IVI,2,50,Cyclic,Unsigned 16-bit (0.25 RPM),Low,Engine rotation speed
+SIG-003,FuelLevel,0x125,,Gateway,IVI,1,1000,Cyclic,Unsigned 8-bit (%),Low,Fuel tank level percentage
+SIG-004,GearPosition,0x126,,Gateway,IVI,1,100,Event,Enum (P/R/N/D/S),Low,Current gear position
+SIG-005,DoorStatus,0x200,,BCM,IVI,1,Event,Event,Bitfield,Medium,Door open/close status
+SIG-006,SeatbeltStatus,0x201,,BCM,IVI,1,Event,Event,Bitfield,Medium,Seatbelt fastened status
+SIG-007,LightStatus,0x202,,BCM,IVI,2,500,Cyclic,Bitfield,Low,Exterior light status
+SIG-008,ClimateSetpoint,0x300,,IVI,HVAC,2,Event,Event,Signed 16-bit (0.1 C),Low,User requested temperature
+SIG-009,FanSpeed,0x301,,IVI,HVAC,1,Event,Event,Unsigned 8-bit,Low,Fan speed setting
+SIG-010,ACRequest,0x302,,IVI,HVAC,1,Event,Event,Boolean,Low,AC on/off request
+SIG-011,MediaSource,0x400,,IVI,Amplifier,1,Event,Event,Enum,Low,Active audio source
+SIG-012,VolumeLevel,0x401,,IVI,Amplifier,1,Event,Event,Unsigned 8-bit,Low,Volume setting
+SIG-013,DiagRequest,0x7DF,,External,IVI,8,Event,Request,UDS,High,Diagnostic request (OBD-II)
+SIG-014,DiagResponse,0x7E8,,IVI,External,8,Event,Response,UDS,High,Diagnostic response
+SIG-015,RemoteDoorLock,0x500,,IVI,BCM,2,Event,Event,Command + Auth,Critical,Remote door lock command
+SIG-016,RemoteDoorUnlock,0x501,,IVI,BCM,2,Event,Event,Command + Auth,Critical,Remote door unlock command
+SIG-017,RemoteEngineStart,0x502,,IVI,Gateway,4,Event,Event,Command + Auth,Critical,Remote engine start command
+SIG-018,ParkingBrakeStatus,0x127,,Gateway,IVI,1,200,Cyclic,Boolean,Medium,Parking brake engaged status
+SIG-019,TirePressure_FL,0x130,,TPMS,IVI,2,5000,Cyclic,Unsigned 16-bit (kPa),Low,Front left tire pressure
+SIG-020,TirePressure_FR,0x131,,TPMS,IVI,2,5000,Cyclic,Unsigned 16-bit (kPa),Low,Front right tire pressure
+SIG-021,TirePressure_RL,0x132,,TPMS,IVI,2,5000,Cyclic,Unsigned 16-bit (kPa),Low,Rear left tire pressure
+SIG-022,TirePressure_RR,0x133,,TPMS,IVI,2,5000,Cyclic,Unsigned 16-bit (kPa),Low,Rear right tire pressure
+SIG-023,NavigationGuidance,0x600,,IVI,Cluster,8,100,Cyclic,Struct,Low,Turn-by-turn instruction for cluster
+SIG-024,PhoneCallStatus,0x601,,IVI,Cluster,2,Event,Event,Enum + Number,Low,Incoming/ongoing call status
